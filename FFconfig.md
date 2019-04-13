@@ -8,6 +8,56 @@ after Shadowfox install append here:
 Help > Troubleshooting Information > Profile Folder (Open Folder) > chrome > userChrome.css   
  
 ```
+/* removes tabs at the top */
+#titlebar {margin-bottom: 0px !important;}
+#tabbrowser-tabs {visibility: collapse !important;}
+
+
+
+
+/* Modify to change window drag space width */
+/*
+Use Fx65_tabs_on_bottom_menubar_on_top_patch if you
+have menubar permanently enabled and want it on top
+ */
+
+ :root{ --uc-titlebar-padding: 0px; --uc-window-control-width: 138px }
+ :root[sizemode="maximized"][tabsintitlebar]{ --uc-titlebar-padding: 8px }
+ :root[tabsintitlebar="true"] #nav-bar{ --window-drag-space-width: 15px; }
+ 
+ 
+ .titlebar-buttonbox-container{
+   position: fixed;
+   top: var(--uc-titlebar-padding,0px);
+   right:0;
+   height: 40px;
+ }
+ 
+ :root[uidensity="compact"] .titlebar-buttonbox-container{ height: 32px }
+ 
+ #toolbar-menubar[inactive] > .titlebar-buttonbox-container{ opacity: 0 }
+ 
+ #navigator-toolbox{ padding-top: var(--uc-titlebar-padding,0px) !important; }
+ 
+ 
+ .titlebar-buttonbox-container > .titlebar-buttonbox{ height: 100%; }
+ 
+ #titlebar{
+  -moz-box-ordinal-group: 2;
+   -moz-appearance: none !important;
+ }
+ 
+ :root[tabsintitlebar="true"] #nav-bar{
+  padding-right: calc(var(--uc-window-control-width) + var(--window-drag-space-width,0px));
+  padding-left: var(--window-drag-space-width,0px)
+}
+ 
+ .titlebar-placeholder,
+ #TabsToolbar .titlebar-spacer{ display: none; }
+ /* Also hide the toolbox bottom border which isn't at bottom with this setup */
+ #navigator-toolbox::after{ display: none !important; }
+
+
 /*
 BOOKMARK BAR
 */
